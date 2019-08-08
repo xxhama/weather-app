@@ -1,18 +1,20 @@
 <template>
   <v-container grid-list-lg>
-    <v-layout column wrap justify-center>
+    <v-layout wrap align-center justify-center>
       <v-flex xs12>
-        <v-toolbar dense>
-          <v-text-field
-            hide-details
-            prepend-icon="mdi-magnify"
-            single-line
-          ></v-text-field>
+        <v-card>
+          <v-toolbar dense>
+            <v-text-field
+              hide-details
+              prepend-icon="mdi-magnify"
+              single-line
+            ></v-text-field>
 
-          <v-btn icon>
-            <v-icon>mdi-crosshairs-gps</v-icon>
-          </v-btn>
-        </v-toolbar>
+            <v-btn icon>
+              <v-icon>mdi-crosshairs-gps</v-icon>
+            </v-btn>
+          </v-toolbar>
+        </v-card>
       </v-flex>
       <v-flex xs12>
         <WeatherCard />

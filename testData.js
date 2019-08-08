@@ -1,4 +1,4 @@
-const darkSkyApi = {
+export const data = {
   latitude: 42.3601,
   longitude: -71.0589,
   timezone: 'America/New_York',
