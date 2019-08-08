@@ -5,9 +5,11 @@
         <v-card>
           <v-toolbar dense>
             <v-text-field
+              :value="location"
               hide-details
               prepend-icon="mdi-magnify"
               single-line
+              @keyup.enter.native="search"
             ></v-text-field>
 
             <v-btn icon>
@@ -17,18 +19,38 @@
         </v-card>
       </v-flex>
       <v-flex xs12>
-        <WeatherCard />
+        <WeatherCard :data="weatherCard" />
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
+import axios from 'axios'
 import WeatherCard from '~/components/WeatherCard.vue'
 
 export default {
   components: {
     WeatherCard
+  },
+  data: () => ({
+    location: '',
+    weatherCard: {}
+  }),
+  computed: {},
+  methods: {
+    search: (event) => {
+      axios
+        .get('./api/weather', {
+          query: { zip: event.target.value }
+        })
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
   }
 }
 </script>
