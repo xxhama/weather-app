@@ -65,6 +65,11 @@ module.exports = {
     }
   },
   /*
+   ** Middleware
+   */
+  serverMiddleware: ['~/api/'],
+
+  /*
    ** Build configuration
    */
   build: {

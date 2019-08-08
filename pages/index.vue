@@ -5,6 +5,7 @@
         <v-card>
           <v-toolbar dense>
             <v-text-field
+              label="Zip Code"
               hide-details
               prepend-icon="mdi-magnify"
               single-line
@@ -18,15 +19,14 @@
         </v-card>
       </v-flex>
       <v-flex xs12>
-        <WeatherCard :data="weatherCard" />
+        <WeatherCard :weather="weather" />
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
-import axios from 'axios'
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import WeatherCard from '~/components/WeatherCard.vue'
 
 export default {
@@ -35,22 +35,12 @@ export default {
   },
   data: () => ({}),
   computed: {
-    ...mapState(['location', 'weatherCard'])
+    ...mapState(['location', 'weather'])
   },
   methods: {
-    ...mapMutations('index', ['updateWeatherCard']),
-    search: (event) => {
-      axios
-        .get('./api/weather', {
-          query: { zip: event.target.value }
-        })
-        .then((response) => {
-          console.log(response)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-    }
+    ...mapActions({
+      search: 'getWeather'
+    })
   }
 }
 </script>
