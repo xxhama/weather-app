@@ -1,6 +1,6 @@
 import { icons } from '../../assets/weather-icons'
 const { Router } = require('express')
-const { ipStack } = require('../vendorAPI')
+const { ipStack, darkSky } = require('../vendorAPI')
 const router = Router()
 
 router.get('/weather', (req, res, next) => {
@@ -8,7 +8,12 @@ router.get('/weather', (req, res, next) => {
   // req.connection.remoteAddress || req.headers['x-forwarded-for']
   ipStack('GET', ip)
     .then((response) => {
-      res.send(JSON.parse(response))
+      const data = JSON.parse(response)
+      const coor = {
+        lat: data.latitude,
+        lon: data.longitude
+      }
+      res.send(coor)
     })
     .catch((error) => {
       res.send(error)
