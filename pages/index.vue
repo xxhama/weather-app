@@ -9,7 +9,7 @@
               hide-details
               prepend-icon="mdi-magnify"
               single-line
-              @keyup.enter.native="search"
+              @keyup.enter.native="getWeather"
             ></v-text-field>
 
             <v-btn icon>
@@ -37,9 +37,12 @@ export default {
   computed: {
     ...mapState(['location', 'weather'])
   },
+  created() {
+    this.getWeather()
+  },
   methods: {
     ...mapActions({
-      search: 'getWeather'
+      getWeather: 'getWeather'
     })
   }
 }

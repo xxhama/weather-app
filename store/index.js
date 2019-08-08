@@ -29,19 +29,16 @@ export const mutations = {
 export const actions = {
   getWeather({ commit }) {
     commit('loading', true)
-    axios
-      .get('/api/weather')
-      .then(
-        (response) => {
-          setTimeout(function() {
-            commit('updateWeather', response)
-            commit('loading', false)
-          }, 1000)
-        },
-        (error) => {
-          console.log(error)
-        }
-      )
-      .finally()
+    axios.get('/api/weather').then(
+      (response) => {
+        setTimeout(function() {
+          commit('updateWeather', response)
+          commit('loading', false)
+        }, 1000)
+      },
+      (error) => {
+        console.log(error)
+      }
+    )
   }
 }
