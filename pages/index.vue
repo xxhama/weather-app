@@ -5,7 +5,6 @@
         <v-card>
           <v-toolbar dense>
             <v-text-field
-              :value="location"
               hide-details
               prepend-icon="mdi-magnify"
               single-line
@@ -27,18 +26,19 @@
 
 <script>
 import axios from 'axios'
+import { mapState, mapMutations } from 'vuex'
 import WeatherCard from '~/components/WeatherCard.vue'
 
 export default {
   components: {
     WeatherCard
   },
-  data: () => ({
-    location: '',
-    weatherCard: {}
-  }),
-  computed: {},
+  data: () => ({}),
+  computed: {
+    ...mapState(['location', 'weatherCard'])
+  },
   methods: {
+    ...mapMutations('index', ['updateWeatherCard']),
     search: (event) => {
       axios
         .get('./api/weather', {

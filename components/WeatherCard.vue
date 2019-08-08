@@ -82,19 +82,25 @@ const testData = [
 
 export default {
   name: 'WeatherCard',
-  data: () => ({
-    humidity: currently.humidity,
-    windDir: currently.windBearing,
-    windSpeed: currently.windSpeed,
-    icon: icons.sunny,
-    city: 'Austin',
-    summary: minutely.summary,
-    loading: false,
-    labels: ['SU', 'MO', 'TU', 'WED', 'TH', 'FR', 'SA'],
-    time: 0,
-    temp: currently.temperature,
-    forecast: testData
-  })
+  props: {
+    weatherCard: {
+      default: null,
+      type: {
+        humidity: currently.humidity,
+        windDir: currently.windBearing,
+        windSpeed: currently.windSpeed,
+        icon: icons.sunny,
+        city: 'Austin',
+        summary: minutely.summary,
+        loading: false,
+        labels: ['SU', 'MO', 'TU', 'WED', 'TH', 'FR', 'SA'],
+        time: 0,
+        temp: currently.temperature,
+        forecast: testData
+      }
+    }
+  },
+  data: () => ({})
 }
 </script>
 
