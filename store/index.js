@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 export const state = () => ({
-  zip: '',
   location: '',
   weather: {
     humidity: '',
@@ -30,18 +29,20 @@ export const mutations = {
 }
 
 export const actions = {
-  getWeather({ commit }) {
+  getWeather({ commit }, event) {
     commit('loading', true)
-    axios.get('/api/weather').then(
-      (response) => {
-        setTimeout(function() {
+    axios
+      .get('/api/weather', {
+        params: { zip: event ? event.target.value : null }
+      })
+      .then(
+        (response) => {
           commit('updateWeather', response)
           commit('loading', false)
-        }, 500)
-      },
-      (error) => {
-        console.log(error)
-      }
-    )
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
   }
 }

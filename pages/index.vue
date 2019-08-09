@@ -5,6 +5,7 @@
         <v-card>
           <v-toolbar dense>
             <v-text-field
+              :value="zip"
               label="Zip Code"
               hide-details
               prepend-icon="mdi-magnify"
@@ -35,9 +36,9 @@ export default {
   },
   data: () => ({}),
   computed: {
-    ...mapState(['location', 'weather'])
+    ...mapState(['location', 'weather', 'zip'])
   },
-  created() {
+  mounted() {
     this.getWeather()
   },
   methods: {
