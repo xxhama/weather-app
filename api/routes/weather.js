@@ -1,7 +1,6 @@
 const { Router } = require('express')
 const { ipStack, darkSky } = require('../vendorAPI')
 const router = Router()
-import {icons} from '../../assets/weather-icons'
 
 router.get('/weather', (req, res, next) => {
   const ip = `72.178.92.118`
@@ -39,7 +38,7 @@ router.get('/weather', (req, res, next) => {
             ...response,
             labels: ['SU', 'MO', 'TU', 'WED', 'TH', 'FR', 'SA'],
             summary: currently.summary,
-            temp: currently.temperature,
+            temp: Math.round(currently.temperature),
             windSpeed: currently.windSpeed,
             windDir: currently.windBearing,
             forecast: daily.data,
