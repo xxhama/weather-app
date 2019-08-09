@@ -32,5 +32,13 @@ module.exports = {
         }
       )
     })
+  },
+  openDataZip(zip) {
+    return new Promise((resolve, reject) => {
+      const BASE_URL = `https://public.opendatasoft.com/api/records/1.0/search/?dataset=us-zip-code-latitude-and-longitude&q=zip%3D${zip}&facet=state`
+      request(BASE_URL, { method: 'GET' }, (err, res, body) => {
+        err ? reject(err) : resolve(body)
+      })
+    })
   }
 }

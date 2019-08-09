@@ -1,6 +1,8 @@
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 export const state = () => ({
+  alert: {},
   location: '',
   weather: {
     humidity: '',
@@ -23,8 +25,8 @@ export const mutations = {
   updateWeather(state, weather) {
     state.weather = { ...state.weather, ...weather.data }
   },
-  updateForecast(state, forecast) {
-    state.weather = { ...state.forecast, forecast }
+  updateAlertMsg(state, msg) {
+    state.alert = msg
   }
 }
 
@@ -41,8 +43,12 @@ export const actions = {
           commit('loading', false)
         },
         (error) => {
-          console.log(error)
+          commit('updateAlertMsg', { msg: 'Please check zipcode', error })
+          commit('loading', false)
         }
       )
+  },
+  alertMessage({ state }) {
+    Swal.fire('Ouch...', state.alert.msg, 'error')
   }
 }
