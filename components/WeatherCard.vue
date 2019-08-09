@@ -11,16 +11,14 @@
 
     <v-card-text>
       <v-layout wrap align-center>
-        <v-flex lg8 sm6 xs12 display-3> {{ weather.temp }}&deg;C </v-flex>
+        <v-flex lg8 sm6 xs12 display-3> {{ weather.temp }}&deg;F</v-flex>
         <v-flex lg4 sm6 xs12>
-          <v-slide-y-transition>
-            <v-img
-              aspect-ratio="2"
-              contain
-              :src="weather.icon"
-              alt="weather-icon"
-            ></v-img>
-          </v-slide-y-transition>
+          <v-img
+            aspect-ratio="2"
+            contain
+            :src="weather.icon"
+            alt="weather-icon"
+          ></v-img>
         </v-flex>
       </v-layout>
     </v-card-text>
@@ -29,28 +27,24 @@
       <v-list-item-icon>
         <v-icon>mdi-send</v-icon>
       </v-list-item-icon>
-      <v-list-item-subtitle
-        >{{ weather.windSpeed }} mph,
-        {{ weather.windDir }}</v-list-item-subtitle
-      >
+      <v-list-item-subtitle>{{
+        `${weather.windSpeed} MPH, ${weather.windDir}`
+      }}</v-list-item-subtitle>
     </v-list-item>
 
     <v-list-item>
       <v-list-item-icon>
         <v-icon>mdi-water</v-icon>
       </v-list-item-icon>
-      <v-list-item-subtitle
-        >{{ Math.round(weather.humidity) }} %</v-list-item-subtitle
-      >
+      <v-list-item-subtitle>{{ `${weather.humidity}%` }} </v-list-item-subtitle>
+      <v-list-item>
+        <v-list-item-icon>
+          <v-icon>mdi-arrow-collapse-down</v-icon>
+        </v-list-item-icon>
+        <v-list-item-subtitle>{{ weather.pressure }}</v-list-item-subtitle>
+      </v-list-item>
     </v-list-item>
-
-    <v-slider
-      v-model="weather.time"
-      :max="weather.labels.length - 1"
-      :tick-labels="weather.labels"
-      class="mx-2"
-      ticks
-    ></v-slider>
+    <v-divider></v-divider>
 
     <v-list class="transparent">
       <v-list-item v-for="item in weather.forecast" :key="item.day">
@@ -61,16 +55,12 @@
         </v-list-item-icon>
 
         <v-list-item-subtitle class="text-right">
-          {{ item.temp }}
+          <strong>{{ `${item.temp.high}&deg;` }}</strong>
+          <v-spacer></v-spacer>
+          <small>{{ `${item.temp.low}&deg;` }}</small>
         </v-list-item-subtitle>
       </v-list-item>
     </v-list>
-
-    <v-divider></v-divider>
-
-    <v-card-actions>
-      <v-btn text>Full Report</v-btn>
-    </v-card-actions>
   </v-card>
 </template>
 <script>

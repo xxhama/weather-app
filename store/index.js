@@ -1,5 +1,6 @@
 import axios from 'axios'
 import Swal from 'sweetalert2'
+// import request from 'request'
 
 export const state = () => ({
   alert: {},
@@ -49,6 +50,6 @@ export const actions = {
       )
   },
   alertMessage({ state }) {
-    Swal.fire('Ouch...', state.alert.msg, 'error')
+    Swal.fire(state.alert.title, state.alert.msg, 'error')
   }
 }

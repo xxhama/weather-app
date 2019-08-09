@@ -25,34 +25,51 @@ router.get('/weather', async (req, res, next) => {
         daily.data = daily.data.map((data) => {
           return {
             time: getWeekDay(data.time),
-            temp: averageTemp([data.temperatureHigh, data.temperatureLow]),
+            temp: {
+              low: Math.round(data.temperatureLow),
+              high: Math.round(data.temperatureHigh)
+            },
             icon: `/${data.icon}.svg`
           }
         })
+
+        // Send Response
         res.send({
           ...location,
-          labels: ['SU', 'MO', 'TU', 'WED', 'TH', 'FR', 'SA'],
+          alert: {
+            title: alerts[0].title,
+            msg: alerts[0].description
+          },
+          pressure: currently.pressure,
           summary: hourly.summary,
           temp: Math.round(currently.temperature),
           windSpeed: currently.windSpeed,
-          windDir: currently.windBearing,
-          forecast: daily.data,
+          windDir: getDegree(currently.windBearing),
           humidity: currently.humidity * 100,
           icon: `/${currently.icon}.svg`,
-          alerts
+          labels: ['SU', 'MO', 'TU', 'WED', 'TH', 'FR', 'SA'],
+          forecast: daily.data
         })
       })
       // Dark Sky Call Error
       .catch((error) => {
         res.status(500).json(error)
       })
+    // Error locating by zip or ip
   } catch (e) {
     res.status(500).json({
       error: e.toString(),
-      msg: 'That is not the zip im looking for...'
+      alert: { msg: 'That is not the zip im looking for...', title: 'Ouch' }
     })
   }
 })
+
+// Helper Functions
+function getDegree(num) {
+  const val = parseInt(num / 45 + 0.5)
+  const dir = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
+  return dir[val % dir.length]
+}
 
 function getWeekDay(date) {
   const weekdays = [

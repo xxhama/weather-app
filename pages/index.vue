@@ -14,7 +14,9 @@
             ></v-text-field>
 
             <v-btn icon>
-              <v-icon>mdi-crosshairs-gps</v-icon>
+              <v-icon @click.stop.native="getWeather"
+                >mdi-crosshairs-gps</v-icon
+              >
             </v-btn>
           </v-toolbar>
         </v-card>
