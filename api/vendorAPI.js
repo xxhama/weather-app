@@ -24,6 +24,7 @@ module.exports = {
       request(
         `${BASE_URL}/forecast/${API_KEY}/${corr.lat},${corr.lon}`,
         {
+          method,
           qs: {}
         },
         (err, res, body) => {
