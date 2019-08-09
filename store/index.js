@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 export const state = () => ({
+  zip: '',
   location: '',
   weather: {
     humidity: '',
