@@ -1,23 +1,20 @@
+import axios from 'axios'
 const { Router } = require('express')
 const { ipStack, darkSky, openDataZip } = require('../vendorAPI')
 const router = Router()
 
 router.get('/weather', async (req, res, next) => {
-  // Set IP
-  const ip = process.env.NODE_ENV
-    ? `72.178.92.118`
-    : req.connection.remoteAddress || req.headers['x-forwarded-for']
-
   try {
     // Get Location from IP or Zip
+    const ip = await axios('https://icanhazip.com')
     const location = req.query.zip
       ? await getZip(req.query.zip)
-      : await getIP(ip)
+      : await getIP(ip.data)
     // Dark Sky Call
     darkSky('GET', { lat: location.lat, lon: location.lon })
       // Dark Sky Call Successful
       .then((data) => {
-        // Parse Data
+        // Extract and Parse Data
         const { currently, daily, hourly } = JSON.parse(data)
 
         // Format Forecast Data
@@ -35,11 +32,11 @@ router.get('/weather', async (req, res, next) => {
         // Send Response
         res.status(200).json({
           ...location,
-          pressure: currently.pressure,
+          pressure: Math.round(currently.pressure),
           summary: hourly.summary,
           temp: Math.round(currently.temperature),
           windSpeed: currently.windSpeed,
-          windDir: getDegree(currently.windBearing),
+          windDir: getDir(currently.windBearing),
           humidity: currently.humidity * 100,
           icon: `/${currently.icon}.svg`,
           labels: ['SU', 'MO', 'TU', 'WED', 'TH', 'FR', 'SA'],
@@ -59,13 +56,14 @@ router.get('/weather', async (req, res, next) => {
   }
 })
 
-// Helper Functions
-function getDegree(num) {
+// Turns Degree into Wind Direction
+function getDir(num) {
   const val = parseInt(num / 45 + 0.5)
   const dir = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
   return dir[val % dir.length]
 }
 
+// Turns weekday number into day
 function getWeekDay(date) {
   const weekdays = [
     'Sunday',
@@ -80,6 +78,7 @@ function getWeekDay(date) {
   return weekdays[date]
 }
 
+// Get Coordinates bas off Zip
 function getZip(zip) {
   return new Promise((resolve, reject) => {
     openDataZip(zip)
@@ -97,6 +96,7 @@ function getZip(zip) {
   })
 }
 
+// Get Coordinates bas off IP
 function getIP(ip) {
   return new Promise((resolve, reject) => {
     // ipStack Call
@@ -115,4 +115,5 @@ function getIP(ip) {
       })
   })
 }
+
 module.exports = router

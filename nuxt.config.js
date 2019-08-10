@@ -16,6 +16,11 @@ module.exports = {
         hid: 'description',
         name: 'description',
         content: process.env.npm_package_description || ''
+      },
+      { property: 'og:title', content: 'Simple Weather App' },
+      {
+        property: 'og:image',
+        content: 'http://weather.johnnyx.com/meta-img.jpeg'
       }
     ],
     link: [

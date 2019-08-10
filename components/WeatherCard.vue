@@ -41,7 +41,9 @@
         <v-list-item-icon>
           <v-icon>mdi-arrow-collapse-down</v-icon>
         </v-list-item-icon>
-        <v-list-item-subtitle>{{ weather.pressure }}</v-list-item-subtitle>
+        <v-list-item-subtitle>{{
+          `${weather.pressure} P`
+        }}</v-list-item-subtitle>
       </v-list-item>
     </v-list-item>
     <v-divider />
