@@ -69,6 +69,13 @@ module.exports = {
    ** Middleware
    */
   serverMiddleware: ['~/api/'],
+  /*
+   ** Server Settings
+   */
+  server: {
+    port: 80,
+    host: '0.0.0.0'
+  },
 
   /*
    ** Build configuration
