@@ -13,13 +13,12 @@ router.get('/weather', async (req, res, next) => {
     const location = req.query.zip
       ? await getZip(req.query.zip)
       : await getIP(ip)
-
     // Dark Sky Call
     darkSky('GET', { lat: location.lat, lon: location.lon })
       // Dark Sky Call Successful
       .then((data) => {
         // Parse Data
-        const { currently, alerts, daily, hourly } = JSON.parse(data)
+        const { currently, daily, hourly } = JSON.parse(data)
 
         // Format Forecast Data
         daily.data = daily.data.map((data) => {
@@ -34,12 +33,8 @@ router.get('/weather', async (req, res, next) => {
         })
 
         // Send Response
-        res.send({
+        res.status(200).json({
           ...location,
-          alert: {
-            title: alerts[0].title,
-            msg: alerts[0].description
-          },
           pressure: currently.pressure,
           summary: hourly.summary,
           temp: Math.round(currently.temperature),
@@ -53,6 +48,7 @@ router.get('/weather', async (req, res, next) => {
       })
       // Dark Sky Call Error
       .catch((error) => {
+        console.log(error)
         res.status(500).json(error)
       })
     // Error locating by zip or ip
@@ -85,10 +81,6 @@ function getWeekDay(date) {
   return weekdays[date]
 }
 
-function averageTemp(temps) {
-  return Math.round(temps.reduce((low, high) => low + high, 0) / temps.length)
-}
-
 function getZip(zip) {
   return new Promise((resolve, reject) => {
     openDataZip(zip)
@@ -101,6 +93,7 @@ function getZip(zip) {
         })
       })
       .catch((error) => {
+        console.log(error)
         reject(error)
       })
   })

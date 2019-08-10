@@ -1,6 +1,5 @@
 import axios from 'axios'
 import Swal from 'sweetalert2'
-// import request from 'request'
 
 export const state = () => ({
   alert: {},
@@ -43,8 +42,8 @@ export const actions = {
           commit('updateWeather', response)
           commit('loading', false)
         },
-        (error) => {
-          commit('updateAlertMsg', { msg: 'Please check zipcode', error })
+        () => {
+          commit('updateAlertMsg', { msg: 'Please check zipcode' })
           commit('loading', false)
         }
       )

@@ -11,7 +11,7 @@
               prepend-icon="mdi-magnify"
               single-line
               @keyup.enter.native="getWeather"
-            ></v-text-field>
+            />
 
             <v-btn icon>
               <v-icon @click.stop.native="getWeather"

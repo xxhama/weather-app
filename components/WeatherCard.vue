@@ -11,14 +11,14 @@
 
     <v-card-text>
       <v-layout wrap align-center>
-        <v-flex lg8 sm6 xs12 display-3> {{ weather.temp }}&deg;F</v-flex>
+        <v-flex lg8 sm6 xs12 display-3> {{ `${weather.temp} &deg;F` }}</v-flex>
         <v-flex lg4 sm6 xs12>
           <v-img
             aspect-ratio="2"
             contain
             :src="weather.icon"
             alt="weather-icon"
-          ></v-img>
+          />
         </v-flex>
       </v-layout>
     </v-card-text>
@@ -44,19 +44,18 @@
         <v-list-item-subtitle>{{ weather.pressure }}</v-list-item-subtitle>
       </v-list-item>
     </v-list-item>
-    <v-divider></v-divider>
-
+    <v-divider />
     <v-list class="transparent">
       <v-list-item v-for="item in weather.forecast" :key="item.day">
         <v-list-item-title>{{ item.time }}</v-list-item-title>
 
         <v-list-item-icon>
-          <v-img aspect-ratio="1" :src="item.icon"></v-img>
+          <v-img aspect-ratio="1" :src="item.icon" />
         </v-list-item-icon>
 
         <v-list-item-subtitle class="text-right">
           <strong>{{ `${item.temp.high}&deg;` }}</strong>
-          <v-spacer></v-spacer>
+          <v-spacer />
           <small>{{ `${item.temp.low}&deg;` }}</small>
         </v-list-item-subtitle>
       </v-list-item>

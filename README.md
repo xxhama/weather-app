@@ -2,6 +2,13 @@
 
 > The sickest weather app
 
+## About
+> This application uses Nuxt.js for generation and project scaffolding. 
+> You can run 
+``` bash
+yarn install && yarn dev
+```
+> This will install and run the application in one command. Application will be listening on https://localhost:3000
 ## Build Setup
 
 ``` bash
