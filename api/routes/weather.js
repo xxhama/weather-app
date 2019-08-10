@@ -6,10 +6,13 @@ const router = Router()
 router.get('/weather', async (req, res, next) => {
   try {
     // Get Location from IP or Zip
-    const ip = await axios('https://icanhazip.com')
+    const ip =
+      process.env.NODE_ENV === 'development'
+        ? '173.239.232.45'
+        : req.header('x-forwarded-for') || req.connection.remoteAddress
     const location = req.query.zip
       ? await getZip(req.query.zip)
-      : await getIP(ip.data)
+      : await getIP(ip)
     // Dark Sky Call
     darkSky('GET', { lat: location.lat, lon: location.lon })
       // Dark Sky Call Successful
