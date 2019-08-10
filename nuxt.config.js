@@ -8,7 +8,7 @@ module.exports = {
    */
   head: {
     titleTemplate: '%s ',
-    title: process.env.npm_package_name || '',
+    title: 'Super Simple Weather App' || '',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -18,12 +18,15 @@ module.exports = {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      { rel: 'canonical', href: 'https://johnnyx.com' },
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ]
   },
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: {},
   /*
    ** Global CSS
    */
@@ -72,10 +75,6 @@ module.exports = {
   /*
    ** Server Settings
    */
-  server: {
-    port: 80,
-    host: '0.0.0.0'
-  },
 
   /*
    ** Build configuration

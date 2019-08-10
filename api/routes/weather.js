@@ -48,7 +48,6 @@ router.get('/weather', async (req, res, next) => {
       })
       // Dark Sky Call Error
       .catch((error) => {
-        console.log(error)
         res.status(500).json(error)
       })
     // Error locating by zip or ip
@@ -93,7 +92,6 @@ function getZip(zip) {
         })
       })
       .catch((error) => {
-        console.log(error)
         reject(error)
       })
   })
