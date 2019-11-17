@@ -1,0 +1,12 @@
+version: "3"
+services:
+  front-end:
+    build: .
+    container_name: weather_app
+    ports:
+      - 3000:3000
+    environment:
+      - HOST=0.0.0.0
+      - PORT=3000
+      - NODE_ENV=dev
+    restart: always
