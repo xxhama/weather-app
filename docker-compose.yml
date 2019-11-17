@@ -2,11 +2,18 @@ version: "3"
 services:
   front-end:
     build: .
-    container_name: weather_app
-    ports:
-      - 3000:3000
+    container_name: weather-frontend
     environment:
       - HOST=0.0.0.0
       - PORT=3000
-      - NODE_ENV=dev
+      - NODE_ENV=production
     restart: always
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - 1313:8080
+    volumes:
+      - ./nginx-conf/nginx.conf:/etc/nginx/conf.d/nginx.conf
+    depends_on:
+      - front-end
